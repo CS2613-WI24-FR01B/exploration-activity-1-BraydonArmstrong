@@ -20,9 +20,11 @@ Drawing shapes to the screen, rectangles, polygons, and circles shown here. Also
 ![Blocks and Spikes showing off a more clear rectangle usage](image-4.png)
 
 Keyboard input [ref](https://www.pygame.org/docs/ref/key.html)
+    
     pressed_keys = pygame.key.get_pressed()
 
 Mouse input on buttons [ref](https://www.pygame.org/docs/ref/mouse.html)
+    
     pos = pygame.mouse.get_pos()
 		if self.rect.collidepoint(pos):
 			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
