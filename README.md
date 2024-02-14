@@ -6,7 +6,7 @@ Pygame
 
 # 2. How does someone run your program?
 
-First make sure you install pygame, this can be done by running this command in terminal[link to website](https://www.pygame.org/news)
+First make sure you install pygame, this can be done by running this command in terminal [link to website](https://www.pygame.org/news)
 
     python -m pip install -U pygame==2.5.2 --user
 
