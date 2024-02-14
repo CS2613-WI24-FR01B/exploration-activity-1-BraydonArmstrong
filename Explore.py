@@ -207,7 +207,9 @@ def draw_text(text, font, text_col, x, y):
   screen.blit(img, (x, y))
 
 start_img = pygame.image.load("button_start.png").convert_alpha()
+icons_img = pygame.image.load("button_icons.png").convert_alpha()
 start_button = Button(SCREEN_WIDTH/2-start_img.get_width()/2, SCREEN_HEIGHT/2-start_img.get_height()/2, start_img, 1)
+icon_button = Button(SCREEN_WIDTH/4-icons_img.get_width()/2, SCREEN_HEIGHT/2-icons_img.get_height()/2, icons_img, 1)
 
 player = Player()
 player.x = 0
@@ -291,26 +293,39 @@ for path in os.listdir(dir_path):
 print(raw)
 
 levels = []
+icons = []
 for check in raw:
     if '.txt' in check:
         levels.append(check)
     if '.png' in check:
         if 'icon_' in check:
-            print("A")
+            icons.append(check)
+
+curricon = 0
 
 buttons = []
+iconbuttons = []
 waiting = False
 print(levels)
-
+print(icons)
 menu_button = pygame.image.load("button_menuback.png").convert_alpha()
 
 right_button = pygame.image.load("button_arrow_right.png").convert_alpha()
 left_button = pygame.image.load("button_arrow_left.png").convert_alpha()
 
 leftbutton = Button(50,SCREEN_HEIGHT/2-75,left_button,1)
+back_button = Button(10,SCREEN_HEIGHT-100,left_button,.5)
 rightbutton = Button(600,SCREEN_HEIGHT/2-75,right_button,1)
 for level in levels:
     buttons.append(Button(SCREEN_WIDTH/2-175,SCREEN_HEIGHT/2,menu_button,1))
+
+iconimages = []
+
+for icon in icons:
+    iconimages.append(pygame.image.load(icon).convert_alpha())
+
+for i, icon in enumerate(icons):
+    iconbuttons.append(Button((100 + 60 * (i % 20)),(SCREEN_HEIGHT/2-100 + round(i / 20) * 10),iconimages[i],.5))
 
 currbutton = 0
 
@@ -331,6 +346,8 @@ while running:
         if(waiting):
             if(not pygame.mouse.get_pressed(3)[0]):
                 curr = 2
+        if icon_button.draw(screen):
+            curr = 4
     elif(curr == 2):
         waiting = False
         screen.fill((0,0,255))
@@ -341,8 +358,10 @@ while running:
         if buttons[currbutton].draw(screen):
             load(levels[currbutton])
             curr = 3
+        if back_button.draw(screen):
+            curr = 1
         draw_text(levels[currbutton].replace('.txt', ''),font,(255,255,255),SCREEN_WIDTH/2-140,SCREEN_HEIGHT/2)
-            
+        player.surf = iconimages[curricon]
     elif(curr == 3):
         
         if(player.x >= endpoint):
@@ -419,7 +438,8 @@ while running:
         
         if(gamemode == 2):
             pygame.draw.rect(screen, (0,150,0), (0,0,SCREEN_WIDTH,50))
-            pygame.draw.rect(screen, (255,165,0), (100+10,player.y+10+abs(player.speedy),25,25))
+            smaller = pygame.transform.scale_by(iconimages[curricon],.25)
+            screen.blit(smaller, (100+10,player.y+10+abs(player.speedy)))
             #pygame.draw.rect(screen, (200,100,0), (100,player.y+30,50,20))
             ship = pygame.Surface((50,20))
             ship.set_colorkey((0,0,0))
@@ -435,14 +455,22 @@ while running:
             
             if(not player.grounded):
                 #player.surf = pygame.transform.rotate(player.surf, 1)
-                rot = (rot - 3)%360
+                rot = (rot - 4)%360
             else:
                 #player.surf = pygame.transform.rotate(player.surf, 0)
                 rot = round(rot/90)*90
 
             new_image = pygame.transform.rotate(player.surf, rot)
+            new_image = pygame.transform.scale_by(new_image, .5)
             screen.blit(new_image, (100, player.y))
-        
+    elif curr == 4:
+        screen.fill((0,0,255))
+        for i, button in enumerate(iconbuttons):
+            if button.draw(screen):
+                curricon = i
+        if back_button.draw(screen):
+            curr = 1
+        screen.blit(iconimages[curricon], (SCREEN_WIDTH/2-50, 50))
     pygame.display.update()
     #clock.tick(1/30)
 
