@@ -1,6 +1,7 @@
 import pygame
 import os
 import math
+import editor
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -207,8 +208,10 @@ def draw_text(text, font, text_col, x, y):
 
 start_img = pygame.image.load("button_start.png").convert_alpha()
 icons_img = pygame.image.load("button_icons.png").convert_alpha()
+editor_img = pygame.image.load("button_editor.png").convert_alpha()
 start_button = Button(SCREEN_WIDTH/2-start_img.get_width()/2, SCREEN_HEIGHT/2-start_img.get_height()/2, start_img, 1)
 icon_button = Button(SCREEN_WIDTH/4-icons_img.get_width()/2, SCREEN_HEIGHT/2-icons_img.get_height()/2, icons_img, 1)
+editor_button = Button((3 * SCREEN_WIDTH)/4-editor_img.get_width()/2, SCREEN_HEIGHT/2-editor_img.get_height()/2, editor_img, 1)
 
 player = Player()
 player.x = 0
@@ -309,6 +312,7 @@ print(levels)
 print(icons)
 menu_button = pygame.image.load("button_menuback.png").convert_alpha()
 
+
 right_button = pygame.image.load("button_arrow_right.png").convert_alpha()
 left_button = pygame.image.load("button_arrow_left.png").convert_alpha()
 
@@ -336,6 +340,16 @@ while running:
     for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if curr == 5:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        out = ""
+                        print(editor.convert(out.join(newtext)))
+                        newtext = []
+                    elif event.key == pygame.K_BACKSPACE:
+                        newtext = newtext[:-1]
+                    else:
+                        newtext.append(event.unicode)
 
     if(curr == 1):
         screen.fill((0,0,255))
@@ -347,6 +361,9 @@ while running:
                 curr = 2
         if icon_button.draw(screen):
             curr = 4
+        if editor_button.draw(screen):
+            newtext = []
+            curr = 5
     elif(curr == 2):
         waiting = False
         screen.fill((0,0,255))
@@ -470,7 +487,19 @@ while running:
         if back_button.draw(screen):
             curr = 1
         screen.blit(iconimages[curricon], (SCREEN_WIDTH/2-50, 50))
-    pygame.display.update()
+    elif curr == 5:
+        screen.fill((0,0,255))
+        out = ""
+        if back_button.draw(screen):
+            curr = 1
+        
+        pygame.draw.rect(screen,(0,0,0),(SCREEN_WIDTH/2 - 150,SCREEN_HEIGHT/2+10, 400, 50))
+        draw_text(out.join(newtext),font,(255,255,255),SCREEN_WIDTH/2-140,SCREEN_HEIGHT/2)
+        draw_text("Input the name of your CSV",font,(255,255,255),SCREEN_WIDTH/4-150,SCREEN_HEIGHT/4)
+        draw_text("you wish to convert to a level",font,(255,255,255),SCREEN_WIDTH/4-150,SCREEN_HEIGHT/4+50)
+        draw_text("check terminal for result",font,(255,255,255),SCREEN_WIDTH/4-150,SCREEN_HEIGHT/4+100)
+
+    pygame.display.flip()
     #clock.tick(1/30)
 
 
