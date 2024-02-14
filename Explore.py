@@ -233,6 +233,7 @@ def load(name):
     global pads
     global ships
     global cubes
+    global gamemode
     global endpoint
     player.ground = 500
     player.x = 0
