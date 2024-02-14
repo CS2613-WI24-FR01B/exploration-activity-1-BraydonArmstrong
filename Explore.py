@@ -1,5 +1,6 @@
 import pygame
 import os
+import math
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -323,7 +324,7 @@ for icon in icons:
     iconimages.append(pygame.image.load(icon).convert_alpha())
 
 for i, icon in enumerate(icons):
-    iconbuttons.append(Button((100 + 60 * (i % 20)),(SCREEN_HEIGHT/2-100 + round(i / 20) * 10),iconimages[i],.5))
+    iconbuttons.append(Button((100 + 60 * (i % 10)),(SCREEN_HEIGHT/2-100 + math.floor(i / 10) * 60),iconimages[i],.5))
 
 currbutton = 0
 
