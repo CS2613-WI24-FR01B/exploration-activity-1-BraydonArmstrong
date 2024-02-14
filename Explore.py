@@ -237,6 +237,7 @@ def load(name):
     player.ground = 500
     player.x = 0
     player.y = 500
+    gamemode = 1
     endpoint = 0
     player.speedy = 0
     blocks = []
