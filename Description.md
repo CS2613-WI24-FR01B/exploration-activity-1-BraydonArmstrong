@@ -19,6 +19,12 @@ Drawing shapes to the screen, rectangles, polygons, and circles shown here. Also
 ![Triangles being drawn as polygons, and circles, A rectangle is used for the progress bar at the top aswell as another example of text](image-3.png)
 ![Blocks and Spikes showing off a more clear rectangle usage](image-4.png)
 
+Rotate and scale images or shapes [ref](https://www.pygame.org/docs/ref/transform.html)
+
+![Larger icon displaying your current icon](image-5.png)
+
+![Rotating player whenever they jump](image-6.png)
+
 Keyboard input [ref](https://www.pygame.org/docs/ref/key.html)
     
     pressed_keys = pygame.key.get_pressed()
@@ -31,3 +37,18 @@ Mouse input on buttons [ref](https://www.pygame.org/docs/ref/mouse.html)
 				self.clicked = True
 				action = True
 
+# 4. When was it created?
+
+October 28th, 2000 [ref](https://www.pygame.org/docs/tut/PygameIntro.html)
+
+# 5. Why did you select this package/library?
+
+I am very interested in game development and have taken CS2053 along with making many games in my free time just to learn more, so pygame stood out to me as a choice to use as I have seen some people use it but never tried it myself. I felt it was a good time to finally attempt to use it to create something. I have coded many small games so creating something to show off the package felt like a good idea and I had a lot of fun while doing it.
+
+# 6. How did learning the package/library influence your learning of the language?
+
+Learning pygame and all the features I had done for this game helped me a lot, I taught myself objects to store all the player data within one place. Along with accessing data in many ways, reading in all files from a directory, and general file parsing.
+
+# 7. How was your overall experience with the package/library?
+
+There are some areas I feel pygame does suffer, but that is most likely due to it being my first time using it and just being accustomed to other engines. I feel like this is a good engine for smaller games but for larger projects performance may suffer. I would definitely recommend this as python in general is a pretty easy language to learn and pygame isn't too complicated so it would be a good entry level game development software. I will most likely continue using it to make some more small projects or continue the project made for this exploration activity as I enjoyed it quite a lot.
