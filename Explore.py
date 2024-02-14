@@ -157,7 +157,7 @@ def orbcrash(player,block):
            and player.x < (block.x +  + padding)
           or (((player.x + size + padding) > block.x)
            and (player.x + size + padding) < (block.x + size + padding))):
-            player.speedy = JUMP_HEIGHT
+            player.speedy = JUMP_HEIGHT*1.1
 
 def padcrash(player,block):
     if player.y + size >= (block.y + 40):
